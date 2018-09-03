@@ -8,8 +8,17 @@ import lombok.Data;
  */
 @Data
 public class LimitRate {
+    /***
+     * 每秒钟几个令牌
+     */
     private int limit_rate;
+    /**
+     * 当前剩余可用的令牌数量
+     */
     private float last_count;
+    /***
+     * 最近一次获取令牌的时间
+     */
     private long last_time;
 
     public LimitRate(int limit_rate) {
@@ -30,6 +39,11 @@ public class LimitRate {
         return last_count >= 1;
     }
 
+    /***
+     * 消费令牌
+     * @param current_time
+     * @return
+     */
     public boolean tryConsume(long current_time) {
         if (test(current_time)) {
             last_count--;
